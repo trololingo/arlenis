@@ -1,28 +1,198 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para genesis la mejor</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Google Fonts para mejorar la tipografía -->
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Genesis</title>
+  <!-- Tipografías románticas -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f0c29; /* morado muy oscuro */
+      --bg2:#302b63; /* morado */
+      --bg3:#24243e; /* violeta profundo */
+      --gold:#f2c94c; /* dorado suave (flores amarillas) */
+      --rose:#ff8fab; /* rosa romántico */
+      --ink:#1f1f2e; /* tinta */
+      --white:#ffffff;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--white);
+      background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
+      overflow-x:hidden;
+    }
+
+    /* Brillo sutil del fondo */
+    .aurora{
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+      background:
+        radial-gradient(60vmax 60vmax at 10% 20%, rgba(242,201,76,.10), transparent 70%),
+        radial-gradient(50vmax 50vmax at 90% 10%, rgba(255,143,171,.10), transparent 70%),
+        radial-gradient(50vmax 50vmax at 30% 90%, rgba(255,255,255,.08), transparent 70%);
+      filter: blur(8px);
+      animation: aurora 12s ease-in-out infinite alternate;
+    }
+    @keyframes aurora{to{transform:translateY(-2%)}}
+
+    /* Corazones flotando (discretos) */
+    .hearts{position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden}
+    .heart{
+      position:absolute; width:14px; height:14px;
+      background: currentColor; color: rgba(255,255,255,.25);
+      transform: rotate(45deg);
+      animation: floatUp linear infinite;
+      border-radius:2px;
+    }
+    .heart::before,.heart::after{
+      content:""; position:absolute; width:14px; height:14px;
+      background: currentColor; border-radius:50%;
+    }
+    .heart::before{left:-7px}
+    .heart::after{top:-7px}
+    @keyframes floatUp{0%{transform:translateY(120vh) rotate(45deg)}100%{transform:translateY(-20vh) rotate(45deg)}}
+
+    .container{
+      position:relative; z-index:1; min-height:100%; display:flex; align-items:center; justify-content:center; padding:32px;
+    }
+
+    .card{
+      width:min(920px, 92vw);
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+
+    header{padding:28px 28px 0}
+    h1{
+      margin:0;
+      font-family:"Great Vibes", cursive;
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight:400;
+      letter-spacing:.5px;
+      color: var(--gold);
+      text-shadow: 0 1px 0 rgba(0,0,0,.2), 0 6px 24px rgba(242,201,76,.35);
+    }
+    .subtitle{margin-top:8px; color:rgba(255,255,255,.8); font-weight:300}
+
+    .media{position:relative; margin:24px; border-radius:22px; overflow:hidden; border:1px solid rgba(255,255,255,.18)}
+    .media img{width:100%; display:block; object-fit:cover; max-height:420px}
+    .media::after{content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(36,36,62,0) 40%, rgba(36,36,62,.55) 100%)}
+
+    main{padding:8px 28px 28px}
+    .message{
+      margin: 6px 0 18px; line-height:1.9; font-size: clamp(16px, 2.2vw, 18.5px);
+    }
+    .message em{color:var(--gold); font-style: normal}
+    blockquote{
+      margin: 18px 0; padding: 18px 18px 18px 22px; border-left:3px solid var(--rose);
+      background: rgba(255,255,255,.06); border-radius:14px;
+    }
+
+    .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:8px}
+    .btn{
+      border:0; cursor:pointer; padding:14px 18px; border-radius:999px;
+      font-weight:600; letter-spacing:.3px; transition: transform .15s ease, box-shadow .15s ease, opacity .2s ease;
+    }
+    .btn-primary{
+      background: linear-gradient(135deg, var(--gold), #ffd25e);
+      color: #3a2c00;
+      box-shadow: 0 10px 22px rgba(242,201,76,.35);
+    }
+    .btn-primary:hover{transform: translateY(-2px); box-shadow: 0 16px 30px rgba(242,201,76,.45)}
+    .btn-ghost{background: rgba(255,255,255,.10); color:var(--white); border:1px solid rgba(255,255,255,.25)}
+    .btn-ghost:hover{transform: translateY(-2px)}
+
+    .hint{
+      margin-top:10px; font-weight:500; color:var(--gold);
+      opacity:0; transform: translateY(6px); transition: .25s ease;
+    }
+    .hint.show{opacity:1; transform: translateY(0)}
+
+    footer{padding:0 28px 28px; color:rgba(255,255,255,.7); font-size:13px}
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Para Genesis</h1>
-        </header>
-        <main>
-            <img src="flores-amarillas-1024x683.jpg" alt="Flores Amarillas" class="flowers">
-            <p class="message">
-                Loca, te regalo estas flores amarillas como símbolo de nuestra amistad. Te quiero mucho y siempre seremos amigos, te quiero toto.
-            </p>
-            <button class="button">Amistad por Siempre</button>
-        </main>
-        <footer>
-            <p>&copy; 2024 Genesis</p>
-        </footer>
-    </div>
+  <div class="aurora"></div>
+  <div class="hearts" aria-hidden="true">
+    <!-- Algunos corazones posicionados aleatoriamente -->
+    <span class="heart" style="left:8%; animation-duration:14s; animation-delay:-2s"></span>
+    <span class="heart" style="left:22%; animation-duration:18s; animation-delay:-6s"></span>
+    <span class="heart" style="left:38%; animation-duration:16s; animation-delay:-10s"></span>
+    <span class="heart" style="left:56%; animation-duration:19s; animation-delay:-4s"></span>
+    <span class="heart" style="left:74%; animation-duration:15s; animation-delay:-9s"></span>
+    <span class="heart" style="left:90%; animation-duration:20s; animation-delay:-1s"></span>
+  </div>
+
+  <div class="container">
+    <article class="card">
+      <header>
+        <h1>Para Genesis</h1>
+        <p class="subtitle">Flores amarillas, por si el destino entiende de señales.</p>
+      </header>
+
+      <figure class="media">
+        <img src="flores-amarillas-1024x683.jpg" alt="Flores amarillas iluminando una tarde" />
+      </figure>
+
+      <main>
+        <p class="message">
+          Te dejo estas flores amarillas —<em>por pura superstición</em>—. Dicen que atraen la suerte y,
+          a veces, sin querer, acercan sonrisas que me gustan. No digo nada en voz alta, pero mi día
+          se pone dorado cuando tu nombre aparece. Si el destino pregunta, dile que llegaste a tiempo:
+          justo cuando las canciones empezaron a sonar como cartas escritas a mano.
+        </p>
+        <blockquote>
+          Lo demás podemos llamarlo <em>amistad</em>, hasta que el universo nos guiñe un ojo.
+          Si hoy ves mariposas, no es casualidad; es mi manera silenciosa de pensar en ti.
+        </blockquote>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="hintBtn" type="button">Una pista</button>
+          <button class="btn btn-ghost" id="saveBtn" type="button">Guárdame este secreto</button>
+        </div>
+        <div class="hint" id="hintText" role="status"></div>
+      </main>
+
+      <footer>
+        <p>&copy; 2024 • para Genesis.</p>
+      </footer>
+    </article>
+  </div>
+
+  <script>
+    const pistas = [
+      "Quizá 'amistad' es solo el prólogo.",
+      "Tal vez el amarillo no es azar: es un guiño.",
+      "Si me ves sonreír, seguro pasó tu nombre por aquí.",
+      "¿Tomamos un café y dejamos que el destino nos explique?",
+      "A veces, lo que callo lo dice mi playlist."
+    ];
+
+    const hintBtn = document.getElementById('hintBtn');
+    const hintText = document.getElementById('hintText');
+    const saveBtn = document.getElementById('saveBtn');
+    let i = 0;
+
+    hintBtn.addEventListener('click', () => {
+      hintText.textContent = pistas[i % pistas.length];
+      hintText.classList.add('show');
+      i++;
+      hintBtn.textContent = i % 2 ? 'Otra pista' : 'Más pistas';
+    });
+
+    saveBtn.addEventListener('click', () => {
+      saveBtn.style.opacity = .8;
+      saveBtn.textContent = 'Hecho ✨';
+      setTimeout(() => { saveBtn.style.opacity = 1; }, 250);
+    });
+  </script>
 </body>
 </html>
